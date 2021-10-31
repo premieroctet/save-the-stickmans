@@ -8,9 +8,6 @@ extents = Vector2( 71.7759, 10 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_left = -511.0
@@ -76,12 +73,6 @@ color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Line2D" type="Line2D" parent="."]
-width = 3.0
-default_color = Color( 0, 0, 0, 1 )
-
-[node name="LineBody" type="StaticBody2D" parent="Line2D"]
 
 [node name="FpsLabel" type="Label" parent="."]
 margin_left = -502.44
