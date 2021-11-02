@@ -1,14 +1,18 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Stickman.gd" type="Script" id=1]
 
-[node name="Node2D" type="RigidBody2D"]
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 5.27703
+height = 3.5128
+
+[node name="Node2D" type="KinematicBody2D"]
 script = ExtResource( 1 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2( 0, 0.0262785 )
-polygon = PoolVector2Array( -3.53085, 6.28643, -1.7965, 6.62804, -0.719105, 2.29217, 1.14664, 6.83827, 3.03865, 6.12876, 0.621075, 1.76661, 0.67363, -2.43787, 4.82556, -0.913748, 5.16717, -2.91088, 0.699907, -4.1985, 1.25175, -6.69491, -2.033, -6.74747, -1.34978, -4.435, -5.44915, -3.01599, -5.34404, -1.30792, -1.48117, -2.72693, -2.71623, 0.951991, -3.63596, 6.0762 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
 
-[node name="Polygon2D" type="Polygon2D" parent="CollisionPolygon2D"]
+[node name="Polygon2D" type="Polygon2D" parent="CollisionShape2D"]
+position = Vector2( 0, 0.0262785 )
 color = Color( 0, 0, 0, 1 )
 polygon = PoolVector2Array( -3.60969, 6.20759, -2.71623, 1.00455, -1.50744, -2.72693, -5.34404, -1.36047, -5.39659, -3.04227, -1.42861, -4.48756, -2.00673, -6.66863, 1.22547, -6.64235, 0.752464, -4.1985, 5.19345, -2.91088, 4.79928, -0.861192, 0.699907, -2.49043, 0.699907, 1.6615, 2.9861, 6.02365, 1.22547, 6.86454, -0.745382, 2.29217, -1.77023, 6.60176 )

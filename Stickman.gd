@@ -1,9 +1,11 @@
-extends RigidBody2D
+extends KinematicBody2D
 
-export (int) var speed = 1
+export (int) var speed = 20
+export (int) var gravity = 1200
 
-func _physics_process(_delta):
-	apply_central_impulse(Vector2(speed, 0))
-	
-	# TODO Implement proper control input
- 
+var velocity = Vector2()
+
+func _physics_process(delta):
+	velocity.y += gravity * delta
+	velocity.x = speed;
+	velocity = move_and_slide(velocity)
