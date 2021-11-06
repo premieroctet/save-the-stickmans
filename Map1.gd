@@ -1,20 +1,32 @@
 extends Node2D
-# TODO
-# - Start and end game
-# - Stickman capacity : repulse
-# - Random stickman becomes a zombie
 
-onready var fpsLabel = $FpsLabel
+onready var fpsLabel = $FpsValue
 onready var scoreLabel = $ScoreValue
+onready var timerLabel = $TimerValue
 onready var Line =  preload("Line.tscn")
 
 export var lineTimeout = 2
 export var lineWidth = 3
+export var time = 100
 
 var line
 var lineBody: StaticBody2D
 var savedStickmans = 0
 var deadStickmans = 0
+
+func start_game():
+	timerLabel.set_text(str(time))
+	print('start game')
+	
+func end_game():
+	savedStickmans = 0
+	deadStickmans = 0
+	time = 100
+	scoreLabel.set_text(str(savedStickmans))
+	print('end game')
+
+func _ready():
+	start_game();
 
 func _physics_process(_delta):
 	fpsLabel.set_text(str(Engine.get_frames_per_second()))
@@ -42,10 +54,14 @@ func _on_LevelArea_body_exited(body):
 		
 func check_if_game_ended() -> bool: 
 	if get_tree().get_nodes_in_group('stickmans').size() == 1: # TODO Why is there still one node ?
-		# TODO Restart game, reposition stickmans
-		savedStickmans = 0
-		deadStickmans = 0
-		scoreLabel.set_text(str(savedStickmans))
+		end_game();
 		return true
 		
 	return false
+
+func _on_Timer_timeout():
+	time -= 1
+	timerLabel.set_text(str(time))
+	
+	if time == 0:
+		end_game()

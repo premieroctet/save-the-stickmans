@@ -17,11 +17,14 @@ extents = Vector2( 7.70808, 25.7457 )
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
 
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
 [node name="LevelArea" type="Area2D" parent="."]
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelArea"]
-position = Vector2( 0.451721, 1.0853 )
+position = Vector2( 0.451721, 2.0853 )
 shape = SubResource( 3 )
 
 [node name="Background" type="ColorRect" parent="."]
@@ -40,15 +43,27 @@ margin_left = -502.44
 margin_top = -291.356
 margin_right = -462.44
 margin_bottom = -277.356
+text = "FPS"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FpsValue" type="Label" parent="."]
+margin_left = -463.33
+margin_top = -291.211
+margin_right = -423.33
+margin_bottom = -277.211
+rect_pivot_offset = Vector2( 486.605, 265.058 )
+text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ScoreLabel" type="Label" parent="."]
 margin_left = -503.729
-margin_top = -275.318
+margin_top = -258.318
 margin_right = -463.729
-margin_bottom = -261.318
+margin_bottom = -244.318
 rect_pivot_offset = Vector2( 230.886, 174.879 )
 text = "Score"
 __meta__ = {
@@ -57,9 +72,31 @@ __meta__ = {
 
 [node name="ScoreValue" type="Label" parent="."]
 margin_left = -463.33
-margin_top = -274.211
+margin_top = -258.211
 margin_right = -423.33
-margin_bottom = -260.211
+margin_bottom = -244.211
+rect_pivot_offset = Vector2( 486.605, 265.058 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimerLabel" type="Label" parent="."]
+margin_left = -503.729
+margin_top = -275.318
+margin_right = -463.729
+margin_bottom = -261.318
+rect_pivot_offset = Vector2( 230.886, 174.879 )
+text = "Time"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimerValue" type="Label" parent="."]
+margin_left = -463.33
+margin_top = -275.211
+margin_right = -423.33
+margin_bottom = -261.211
 rect_pivot_offset = Vector2( 486.605, 265.058 )
 text = "0"
 __meta__ = {
@@ -136,5 +173,6 @@ __meta__ = {
 position = Vector2( 115.621, 53.2215 )
 shape = SubResource( 2 )
 
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="body_exited" from="LevelArea" to="." method="_on_LevelArea_body_exited"]
 [connection signal="body_entered" from="EndArea" to="." method="_on_EndArea_body_entered"]
