@@ -6,13 +6,13 @@
 [ext_resource path="res://LevelArea.gd" type="Script" id=4]
 [ext_resource path="res://Trap.tscn" type="PackedScene" id=5]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 526.752, 312.982 )
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 71.7759, 10 )
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 7.70808, 25.7457 )
 
 [node name="Main" type="Node2D"]
@@ -30,7 +30,7 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelArea"]
 position = Vector2( 0.451721, 2.0853 )
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -119,27 +119,33 @@ __meta__ = {
 
 [node name="Stickman1" parent="." instance=ExtResource( 1 )]
 position = Vector2( -311.131, 120.258 )
+collision_mask = 2
 
 [node name="Stickman2" parent="." instance=ExtResource( 1 )]
 position = Vector2( -295.018, 97.9954 )
+collision_mask = 2
 
 [node name="Stickman3" parent="." instance=ExtResource( 1 )]
 position = Vector2( -326.211, 95.6535 )
+collision_mask = 2
 
 [node name="Stickman4" parent="." instance=ExtResource( 1 )]
 position = Vector2( -262.715, 146.45 )
+collision_mask = 2
 
 [node name="Stickman5" parent="." instance=ExtResource( 1 )]
 position = Vector2( -325.417, 136.926 )
+collision_mask = 2
 
 [node name="Stickman6" parent="." instance=ExtResource( 1 )]
 position = Vector2( -289.701, 117.877 )
+collision_mask = 2
 
 [node name="Platforms" type="StaticBody2D" parent="."]
 position = Vector2( -297.057, 168.707 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="Platforms/CollisionShape2D"]
 margin_left = -72.0
@@ -153,7 +159,7 @@ __meta__ = {
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Platforms"]
 position = Vector2( 350.769, -78.0111 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="Platforms/CollisionShape2D2"]
 margin_left = -72.0
@@ -184,7 +190,7 @@ __meta__ = {
 
 [node name="EndCollision" type="CollisionShape2D" parent="EndArea"]
 position = Vector2( 115.621, 53.2215 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="body_exited" from="LevelArea" to="." method="_on_LevelArea_body_exited"]
