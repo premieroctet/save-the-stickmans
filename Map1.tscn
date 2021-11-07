@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Stickman.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Map1.gd" type="Script" id=2]
 [ext_resource path="res://EndArea.gd" type="Script" id=3]
 [ext_resource path="res://LevelArea.gd" type="Script" id=4]
+[ext_resource path="res://Trap.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 526.752, 312.982 )
@@ -15,6 +16,7 @@ extents = Vector2( 71.7759, 10 )
 extents = Vector2( 7.70808, 25.7457 )
 
 [node name="Main" type="Node2D"]
+position = Vector2( -51, 21 )
 script = ExtResource( 2 )
 
 [node name="Timer" type="Timer" parent="."]
@@ -22,10 +24,16 @@ autostart = true
 
 [node name="LevelArea" type="Area2D" parent="."]
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelArea"]
 position = Vector2( 0.451721, 2.0853 )
 shape = SubResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Background" type="ColorRect" parent="."]
 margin_left = -511.0
@@ -156,6 +164,11 @@ color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Trap" parent="." instance=ExtResource( 5 )]
+position = Vector2( -143, 107 )
+rotation_speed = 0.0
+movement_speed = 20
 
 [node name="EndArea" type="Area2D" parent="."]
 script = ExtResource( 3 )
