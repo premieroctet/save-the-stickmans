@@ -36,7 +36,7 @@ func fear(position):
 
 func end():
 	if connected:
-		rpc_unreliable_id(1, "end")
+		rpc_unreliable_id(1, "player_end")
 
 remote func reset():
 	player.position = Vector2(0, 0);
