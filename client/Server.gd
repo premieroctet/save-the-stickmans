@@ -61,6 +61,14 @@ remote func apply_fear(position):
 	player.apply_fear(position)
 	
 remote func sync_players(infos):
+	# Remove player not existing anymore
+	for id in players:
+		if not id in infos:
+			players[id].queue_free()
+			get_tree().get_root().remove_child(players[id])
+			players.erase(id)
+	
+	# Resync players
 	for id in infos:
 		if id == get_tree().get_network_unique_id():
 			continue
@@ -75,6 +83,7 @@ remote func sync_players(infos):
 		else:
 			players[id].queue_free()
 			get_tree().get_root().remove_child(players[id])
+			players.erase(id)
 
 func _connected_ok():
 	connected = true
