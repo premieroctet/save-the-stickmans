@@ -160,6 +160,7 @@ rotation_dir = 0
 movement_speed = 20
 
 [node name="EndArea" type="Area2D" parent="."]
+position = Vector2( -509, -52 )
 script = ExtResource( 3 )
 
 [node name="Door" type="ColorRect" parent="EndArea"]
