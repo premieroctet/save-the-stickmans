@@ -55,6 +55,7 @@ func _on_EndArea_body_entered(body):
 
 func _on_LevelArea_body_exited(body):
 	if body == $Player:
+		$Player/Death.play()
 		body.visible = false
 		Server.end()
 
