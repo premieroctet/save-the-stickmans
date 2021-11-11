@@ -33,6 +33,14 @@ func sync_player(info):
 func fear(position):
 	if connected:
 		rpc("apply_fear", position)
+
+func end():
+	if connected:
+		rpc_unreliable_id(1, "end")
+
+remote func reset():
+	player.position = Vector2(0, 0);
+	players = {}
 	
 remote func apply_fear(position):
 	player.apply_fear(position)
@@ -46,7 +54,7 @@ remote func sync_players(infos):
 			players[id] = preload("res://Stickman.tscn").instance()
 			get_tree().get_root().add_child(players[id])
 		
-		if players[id]:
+		if is_instance_valid(players[id]):
 			players[id].position = infos[id]
 
 func _connected_ok():

@@ -40,24 +40,14 @@ func _input(_event: InputEvent) -> void:
 		line.add_point_to_line(get_local_mouse_position())
 
 func _on_EndArea_body_entered(body):
-	if body.is_in_group("stickmans"):
-		body.queue_free()
-		savedStickmans += 1
-		scoreLabel.set_text(str(savedStickmans))
-		check_if_game_ended()
+	if body == $Player:
+		body.visible = false
+		Server.end()
 
 func _on_LevelArea_body_exited(body):
-	if body.is_in_group("stickmans"):
-		body.queue_free()
-		deadStickmans += 1
-		check_if_game_ended()
-		
-func check_if_game_ended() -> bool: 
-	if get_tree().get_nodes_in_group('stickmans').size() == 1: # TODO Why is there still one node ?
-		end_game();
-		return true
-		
-	return false
+	if body == $Player:
+		body.visible = false
+		Server.end()
 
 func _on_Timer_timeout():
 	time -= 1

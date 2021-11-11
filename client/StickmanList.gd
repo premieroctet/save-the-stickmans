@@ -15,5 +15,4 @@ func set_players_infos(infos):
 		if !players[id]:
 			players[id] = preload("res://Stickman.tscn").instance()
 		
-		players[id].position = infos[id]		
-		
+		players[id].position = infos[id]
