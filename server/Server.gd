@@ -26,6 +26,7 @@ func _player_connected(id):
 func _player_disconnected(id):
 	print('Player disconnect ', id)
 	players_positions.erase(id)
+	players_ended.erase(id)
 	
 func send_world_state():
 	rpc_unreliable('sync_players', players_positions)

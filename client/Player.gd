@@ -16,11 +16,8 @@ var playerName = "Jean-Jean"
 
 func _ready():
 	playerName = get_tree().get_network_unique_id()
-	set_player_name()
-
-func set_player_name():
 	$PlayerLabel.set_text(str(playerName))
-
+	
 func get_input():
 	velocity.x = 0
 	var right = Input.is_action_pressed('ui_right')
@@ -39,7 +36,7 @@ func get_input():
 		Server.fear(self.position)
 		$Growl.play()
 		yield(get_tree().create_timer(2), "timeout")
-		set_player_name()
+		$PlayerLabel.set_text(str(playerName))
 
 
 func apply_fear(scream_position: Vector2):
@@ -48,6 +45,9 @@ func apply_fear(scream_position: Vector2):
 	if distance.abs().x < FEAR_DISTANCE.x:
 		fearVelocity = Vector2(0, 0)
 		fearVelocity = distance.normalized() * FEAR_IMPULSE
+		$PlayerLabel.set_text("#$@&")
+		yield(get_tree().create_timer(1), "timeout")
+		$PlayerLabel.set_text(str(playerName))
 		
 func _physics_process(delta):
 	if can_move == true:
@@ -65,11 +65,7 @@ func _physics_process(delta):
 		else:
 			fearVelocity += FEAR_RECOVER
 			
-		$PlayerLabel.set_text("#$@&")
 		move_and_slide(fearVelocity * delta, Vector2.UP)
-		yield(get_tree().create_timer(1), "timeout")
-		set_player_name()
-	
 	# Movements
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
