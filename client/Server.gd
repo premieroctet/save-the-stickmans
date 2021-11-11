@@ -40,6 +40,7 @@ func end():
 
 remote func reset():
 	player.position = Vector2(0, 0);
+	player.visible = true
 	players = {}
 	
 remote func apply_fear(position):
