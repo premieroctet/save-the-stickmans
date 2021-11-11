@@ -4,8 +4,11 @@ var SERVER_IP = '192.168.0.164'
 var SERVER_PORT = 8080
 var connected = false
 var players = {}
+var player
 
 func _ready():
+	player = get_tree().get_root().get_node('Main/Player')
+	
 	var peer = NetworkedMultiplayerENet.new()
 	peer.set_dtls_verify_enabled(false)
 	
@@ -27,6 +30,13 @@ func sync_player(info):
 	if connected:
 		rpc_unreliable_id(1, "register_player", info)
 	
+func fear(position):
+	if connected:
+		rpc("apply_fear", position)
+	
+remote func apply_fear(position):
+	player.apply_fear(position)
+	
 remote func sync_players(infos):
 	for id in infos:
 		if id == get_tree().get_network_unique_id():
@@ -36,7 +46,7 @@ remote func sync_players(infos):
 			players[id] = preload("res://Stickman.tscn").instance()
 			get_tree().get_root().add_child(players[id])
 		
-		players[id].position = infos[id] 
+		players[id].position = infos[id]
 
 func _connected_ok():
 	connected = true
