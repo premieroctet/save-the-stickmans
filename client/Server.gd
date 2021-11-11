@@ -46,7 +46,8 @@ remote func sync_players(infos):
 			players[id] = preload("res://Stickman.tscn").instance()
 			get_tree().get_root().add_child(players[id])
 		
-		players[id].position = infos[id]
+		if players[id]:
+			players[id].position = infos[id]
 
 func _connected_ok():
 	connected = true

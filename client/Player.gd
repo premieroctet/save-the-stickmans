@@ -4,11 +4,10 @@ export (bool) var can_move = true
 export (int) var gravity = 800
 export (int) var run_speed = 150
 export (int) var jump_speed = -350
-export (Vector2) var fear_recover = Vector2(100, 100)
-export (Vector2) var fear_distance = Vector2(30, 30)
 
-var MAX_FEAR_DISTANCE = 50
-var FEAR_IMPULSE = 5000
+export (int) var FEAR_IMPULSE = 10000
+export (Vector2) var FEAR_RECOVER = Vector2(100, 100)
+export (Vector2) var FEAR_DISTANCE = Vector2(30, 30)
 
 var velocity = Vector2()
 var fearVelocity = Vector2()
@@ -28,34 +27,35 @@ func get_input():
 	if left:
 		velocity.x -= run_speed
 	if scream:
+		$ScreamLabel.visible = true
 		Server.fear(self.position)
+		yield(get_tree().create_timer(2), "timeout")
+		$ScreamLabel.visible = false
 
 func apply_fear(scream_position: Vector2):
-	var distance = scream_position.distance_to(self.position)
-	
-	if distance < MAX_FEAR_DISTANCE: 
-		var impulse = (1 - distance / MAX_FEAR_DISTANCE) * FEAR_IMPULSE
-		var move = (self.position - scream_position) * impulse
-		
-		velocity.x += move.x
-		velocity.y += move.y
+	var distance: Vector2 = (self.position - scream_position)
 
+	if distance.abs().x < FEAR_DISTANCE.x:
+		fearVelocity = Vector2(0, 0)
+		fearVelocity = distance.normalized() * FEAR_IMPULSE
+		
 func _physics_process(delta):
 	if can_move == true:
 		get_input() 
 	
 	# Gravity
-	velocity.y += gravity * delta
+	if velocity.y < gravity:
+		velocity.y += gravity * delta
 	
 	# Fear
 	# TODO Improve math
-#	if fearVelocity < Vector2(-1, -1) or fearVelocity > Vector2(1, 1):
-#		if fearVelocity.x > 0:
-#			fearVelocity -= fear_recover
-#		else:
-#			fearVelocity += fear_recover
-#			
-#		move_and_slide(fearVelocity * delta, Vector2.UP)
+	if fearVelocity < Vector2(-1, -1) or fearVelocity > Vector2(1, 1):
+		if fearVelocity.x > 0:
+			fearVelocity -= FEAR_RECOVER
+		else:
+			fearVelocity += FEAR_RECOVER
+			
+		move_and_slide(fearVelocity * delta, Vector2.UP)
 	
 	# Movements
 	velocity = move_and_slide(velocity, Vector2.UP)
