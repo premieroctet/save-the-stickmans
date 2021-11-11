@@ -1,12 +1,13 @@
 extends Node
 
+var SERVER_IP = '127.0.0.1'
 var SERVER_PORT = 1100
 var MAX_PLAYERS = 50
 
 func _ready():
 	var peer = NetworkedMultiplayerENet.new()
-	peer.create_server(SERVER_PORT, MAX_PLAYERS)
-	get_tree().network_peer = peer
+	peer.create_client(SERVER_IP, SERVER_PORT)
+	get_tree().set_network_peer(peer)
 
 	get_tree().connect("connected_to_server", self, "_connected_ok")
 	get_tree().connect("connection_failed", self, "_connected_fail")
