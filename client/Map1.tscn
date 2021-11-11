@@ -5,7 +5,7 @@
 [ext_resource path="res://EndArea.gd" type="Script" id=3]
 [ext_resource path="res://LevelArea.gd" type="Script" id=4]
 [ext_resource path="res://Trap.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Server.gd" type="Script" id=6]
+[ext_resource path="res://Player.gd" type="Script" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 526.752, 312.982 )
@@ -17,7 +17,6 @@ extents = Vector2( 74.6359, 10 )
 extents = Vector2( 7.70808, 25.7457 )
 
 [node name="Main" type="Node2D"]
-position = Vector2( -51, 21 )
 script = ExtResource( 2 )
 
 [node name="Timer" type="Timer" parent="."]
@@ -118,14 +117,9 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Stickman3" parent="." instance=ExtResource( 1 )]
-position = Vector2( -286.12, 115.253 )
+[node name="Player" parent="." instance=ExtResource( 1 )]
 collision_mask = 2
-can_move = false
-
-[node name="Stickman4" parent="." instance=ExtResource( 1 )]
-position = Vector2( -260.933, 120.614 )
-collision_mask = 2
+script = ExtResource( 7 )
 
 [node name="Platforms" type="StaticBody2D" parent="."]
 position = Vector2( -353.184, 174.052 )
@@ -145,13 +139,13 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Platforms"]
-position = Vector2( 432.732, -82.4656 )
+position = Vector2( 382.732, -82.4656 )
 shape = SubResource( 2 )
 
 [node name="ColorRect" type="ColorRect" parent="Platforms/CollisionShape2D2"]
-margin_left = -72.0
+margin_left = -73.0
 margin_top = -10.8909
-margin_right = 71.0
+margin_right = 70.0
 margin_bottom = 9.10907
 color = Color( 0, 0, 0, 1 )
 __meta__ = {
@@ -179,9 +173,6 @@ __meta__ = {
 [node name="EndCollision" type="CollisionShape2D" parent="EndArea"]
 position = Vector2( 115.621, 53.2215 )
 shape = SubResource( 3 )
-
-[node name="Server" type="Node" parent="."]
-script = ExtResource( 6 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="body_exited" from="LevelArea" to="." method="_on_LevelArea_body_exited"]

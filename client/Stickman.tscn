@@ -6,9 +6,7 @@
 radius = 5.27703
 height = 3.5128
 
-[node name="Node2D" type="KinematicBody2D" groups=[
-"stickmans",
-]]
+[node name="Node2D" type="KinematicBody2D" groups=["stickmans"]]
 script = ExtResource( 1 )
 
 [node name="ScreamLabel" type="Label" parent="."]
