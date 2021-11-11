@@ -13,6 +13,7 @@ var velocity = Vector2()
 var fearVelocity = Vector2()
 var loop = 0
 var playerName = "Jean-Jean"
+var screaming = false
 
 func _ready():
 	playerName = get_tree().get_network_unique_id()
@@ -31,12 +32,14 @@ func get_input():
 		velocity.x += run_speed
 	if left:
 		velocity.x -= run_speed
-	if scream:
+	if scream and not screaming:
+		screaming = true
 		$PlayerLabel.set_text("Aaaaaah!")
 		Server.fear(self.position)
 		$Growl.play()
 		yield(get_tree().create_timer(2), "timeout")
 		$PlayerLabel.set_text(str(playerName))
+		screaming = false
 
 
 func apply_fear(scream_position: Vector2):
