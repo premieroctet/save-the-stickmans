@@ -1,5 +1,6 @@
 extends Node
 
+var Stickman = preload("res://Stickman.tscn")
 var SERVER_IP = '192.168.0.164'
 var SERVER_PORT = 8080
 var connected = false
@@ -65,8 +66,9 @@ remote func sync_players(infos):
 			continue
 		
 		if not id in players:
-			players[id] = preload("res://Stickman.tscn").instance()
+			players[id] = Stickman.instance()
 			get_tree().get_root().add_child(players[id])
+			#players[id].playerName = str(id)
 		
 		if is_instance_valid(players[id]):
 			players[id].position = infos[id]
