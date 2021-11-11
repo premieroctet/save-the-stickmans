@@ -39,6 +39,10 @@ func end():
 		rpc_unreliable_id(1, "player_end")
 
 remote func reset():
+	for id in players:
+		players[id].queue_free()
+		get_tree().get_root().remove_child(players[id])
+	
 	player.position = Vector2(0, 0);
 	player.visible = true
 	players = {}
@@ -57,6 +61,9 @@ remote func sync_players(infos):
 		
 		if is_instance_valid(players[id]):
 			players[id].position = infos[id]
+		else:
+			players[id].queue_free()
+			get_tree().get_root().remove_child(players[id])
 
 func _connected_ok():
 	connected = true
