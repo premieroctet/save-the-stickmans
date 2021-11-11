@@ -27,10 +27,12 @@ func get_input():
 	if left:
 		velocity.x -= run_speed
 	if scream:
-		$ScreamLabel.visible = true
+		$PlayerLabel.set_text("Aaaaaah!")
 		Server.fear(self.position)
+		$Growl.play()
 		yield(get_tree().create_timer(2), "timeout")
-		$ScreamLabel.visible = false
+		$PlayerLabel.set_text("Jean")
+
 
 func apply_fear(scream_position: Vector2):
 	var distance: Vector2 = (self.position - scream_position)
@@ -55,7 +57,10 @@ func _physics_process(delta):
 		else:
 			fearVelocity += FEAR_RECOVER
 			
+		$PlayerLabel.set_text("#$@&")
 		move_and_slide(fearVelocity * delta, Vector2.UP)
+		yield(get_tree().create_timer(1), "timeout")
+		$PlayerLabel.set_text("Jean")
 	
 	# Movements
 	velocity = move_and_slide(velocity, Vector2.UP)
