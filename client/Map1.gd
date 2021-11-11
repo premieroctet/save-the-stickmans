@@ -9,8 +9,7 @@ export var lineTimeout = 2
 export var lineWidth = 3
 export var time = 100
 
-var line
-var lineBody: StaticBody2D
+var drawLine
 var savedStickmans = 0
 var deadStickmans = 0
 
@@ -33,11 +32,23 @@ func _physics_process(_delta):
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("click"):
-		line = Line.instance()
-		add_child(line)
+		drawLine = Line2D.new()
+		add_child(drawLine)
 		
 	if Input.is_action_pressed("click"):
-		line.add_point_to_line(get_local_mouse_position())
+		drawLine.add_point(get_local_mouse_position())
+	elif drawLine:
+		Server.send_line(drawLine.points)
+		create_line(drawLine.points)
+		remove_child(drawLine)
+		drawLine = null
+
+func create_line(points):
+	var newLine = Line.instance()
+	add_child(newLine)
+	
+	for point in points:
+		newLine.add_point_to_line(point)
 
 func _on_EndArea_body_entered(body):
 	if body == $Player:

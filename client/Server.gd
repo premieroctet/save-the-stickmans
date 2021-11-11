@@ -5,9 +5,11 @@ var SERVER_PORT = 8080
 var connected = false
 var players = {}
 var player
+var map
 
 func _ready():
 	player = get_tree().get_root().get_node('Main/Player')
+	map = get_tree().get_root().get_node('Main')
 	
 	var peer = NetworkedMultiplayerENet.new()
 	peer.set_dtls_verify_enabled(false)
@@ -34,9 +36,16 @@ func fear(position):
 	if connected:
 		rpc("apply_fear", position)
 
+func send_line(line):
+	if connected:
+		rpc("add_line", line)
+
 func end():
 	if connected:
-		rpc_unreliable_id(1, "player_end")
+		rpc_id(1, "player_end")
+
+remote func add_line(points):
+	map.create_line(points)
 
 remote func reset():
 	for id in players:
