@@ -1,0 +1,128 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://head.png" type="Texture" id=2]
+[ext_resource path="res://Member.tscn" type="PackedScene" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 8.0
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 2.0
+
+[node name="Ragdoll_design" type="Node2D"]
+position = Vector2( 0, -26 )
+
+[node name="Head" type="KinematicBody2D" parent="."]
+position = Vector2( 0, -61 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head"]
+shape = SubResource( 1 )
+
+[node name="Head" type="Sprite" parent="Head"]
+position = Vector2( 0, 2 )
+scale = Vector2( 0.04, 0.04 )
+texture = ExtResource( 2 )
+
+[node name="HeadToBodyJoin" type="PinJoint2D" parent="."]
+position = Vector2( 0, -54 )
+node_a = NodePath("../Head")
+node_b = NodePath("../Body")
+disable_collision = false
+
+[node name="Body" type="RigidBody2D" parent="."]
+position = Vector2( 0, -34 )
+collision_layer = 2
+collision_mask = 0
+gravity_scale = 3.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+position = Vector2( 0, -5 )
+shape = SubResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="Body"]
+margin_left = -2.0
+margin_top = -18.0
+margin_right = 2.0
+margin_bottom = 7.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BodyToArmTopLeftJoin" type="PinJoint2D" parent="."]
+position = Vector2( -2, -47 )
+node_a = NodePath("../Body")
+node_b = NodePath("../ArmTopLeft")
+disable_collision = false
+
+[node name="ArmTopToArmBottomLeftJoin" type="PinJoint2D" parent="."]
+position = Vector2( -14, -47 )
+node_a = NodePath("../ArmTopLeft")
+node_b = NodePath("../ArmBottomLeft")
+disable_collision = false
+
+[node name="BodyToArmTopRight" type="PinJoint2D" parent="."]
+position = Vector2( 2, -47 )
+node_a = NodePath("../Body")
+node_b = NodePath("../ArmTopRight")
+disable_collision = false
+
+[node name="ArmTopToArmBottomRight" type="PinJoint2D" parent="."]
+position = Vector2( 14, -47 )
+node_a = NodePath("../ArmTopRight")
+node_b = NodePath("../ArmBottomRight")
+disable_collision = false
+
+[node name="BodyToLegTopLeft" type="PinJoint2D" parent="."]
+position = Vector2( -2, -27 )
+node_a = NodePath("../Body")
+node_b = NodePath("../LegTopLeft")
+disable_collision = false
+
+[node name="LegTopToLegBottomLeft" type="PinJoint2D" parent="."]
+position = Vector2( -10, -19 )
+node_a = NodePath("../LegTopLeft")
+node_b = NodePath("../LegBottomLeft")
+disable_collision = false
+
+[node name="BodyToLegTopRight" type="PinJoint2D" parent="."]
+position = Vector2( 2, -27 )
+node_a = NodePath("../Body")
+node_b = NodePath("../LegTopRight")
+disable_collision = false
+
+[node name="LegTopToLegBottomRight" type="PinJoint2D" parent="."]
+position = Vector2( 10, -19 )
+node_a = NodePath("../LegTopRight")
+node_b = NodePath("../LegBottomRight")
+disable_collision = false
+
+[node name="ArmTopLeft" parent="." instance=ExtResource( 3 )]
+position = Vector2( -2, -47 )
+rotation = 1.5708
+
+[node name="ArmBottomLeft" parent="." instance=ExtResource( 3 )]
+position = Vector2( -14, -47 )
+rotation = 1.5708
+
+[node name="ArmTopRight" parent="." instance=ExtResource( 3 )]
+position = Vector2( 2, -47 )
+rotation = -1.5708
+
+[node name="ArmBottomRight" parent="." instance=ExtResource( 3 )]
+position = Vector2( 14, -47 )
+rotation = -1.5708
+
+[node name="LegBottomLeft" parent="." instance=ExtResource( 3 )]
+position = Vector2( -10, -19 )
+
+[node name="LegTopLeft" parent="." instance=ExtResource( 3 )]
+position = Vector2( -2, -27 )
+rotation = 0.785398
+
+[node name="LegBottomRight" parent="." instance=ExtResource( 3 )]
+position = Vector2( 10, -19 )
+
+[node name="LegTopRight" parent="." instance=ExtResource( 3 )]
+position = Vector2( 2, -27 )
+rotation = -0.785398
