@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Stickman.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Map1.gd" type="Script" id=2]
 [ext_resource path="res://EndArea.gd" type="Script" id=3]
 [ext_resource path="res://LevelArea.gd" type="Script" id=4]
 [ext_resource path="res://Trap.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Server.gd" type="Script" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 526.752, 312.982 )
@@ -160,6 +161,7 @@ __meta__ = {
 [node name="Trap" parent="." instance=ExtResource( 5 )]
 position = Vector2( -143, 107 )
 rotation_speed = 0.0
+rotation_dir = 0
 movement_speed = 20
 
 [node name="EndArea" type="Area2D" parent="."]
@@ -177,6 +179,9 @@ __meta__ = {
 [node name="EndCollision" type="CollisionShape2D" parent="EndArea"]
 position = Vector2( 115.621, 53.2215 )
 shape = SubResource( 3 )
+
+[node name="Server" type="Node" parent="."]
+script = ExtResource( 6 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="body_exited" from="LevelArea" to="." method="_on_LevelArea_body_exited"]
