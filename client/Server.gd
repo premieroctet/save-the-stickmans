@@ -68,7 +68,7 @@ remote func sync_players(infos):
 		if not id in players:
 			players[id] = Stickman.instance()
 			get_tree().get_root().add_child(players[id])
-			#players[id].playerName = str(id)
+			players[id].set_player_name(id)
 		
 		if is_instance_valid(players[id]):
 			players[id].position = infos[id]

@@ -5,8 +5,6 @@ onready var scoreLabel = $ScoreValue
 onready var timerLabel = $TimerValue
 onready var Line =  preload("Line.tscn")
 
-export var lineTimeout = 2
-export var lineWidth = 3
 export var time = 100
 
 var drawLine

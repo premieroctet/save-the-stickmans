@@ -5,7 +5,6 @@ var MAX_PLAYERS = 50
 
 var players_ended = []
 var players_positions = {}
-var line_segments: PoolVector2Array
 
 func _ready():
 	var server = NetworkedMultiplayerENet.new()
@@ -44,7 +43,3 @@ remote func player_end():
 		players_ended = []
 		players_positions = {}
 
-remote func draw(point):
-	var id = get_tree().get_rpc_sender_id()
-	line_segments.append(point)
-	rpc_unreliable('draw', line_segments)

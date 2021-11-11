@@ -118,7 +118,6 @@ __meta__ = {
 }
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-collision_mask = 2
 script = ExtResource( 7 )
 
 [node name="Platforms" type="StaticBody2D" parent="."]
