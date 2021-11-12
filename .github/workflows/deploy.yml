@@ -15,3 +15,5 @@ jobs:
           godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/3.4/Godot_v3.4-stable_export_templates.tpz
           relative_project_path: ./client
           use_preset_export_path: true
+      - name: Deploy to netlify
+        run: make deploy-client
