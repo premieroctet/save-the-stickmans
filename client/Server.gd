@@ -1,7 +1,7 @@
 extends Node
 
 var Stickman = preload("res://Stickman.tscn")
-var SERVER_IP = '178.62.198.203'
+var SERVER_IP = 'savethestickmans.ddns.net'
 var SERVER_PORT = 8080
 var connected = false
 var players = {}
