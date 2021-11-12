@@ -9,6 +9,18 @@ var players_positions = {}
 func _ready():
 	var server = WebSocketServer.new()
 	server.listen(SERVER_PORT, PoolStringArray(), true);
+
+	var private_key = CryptoKey.new(); 
+	private_key.load("../certificates/privkey.key")
+	server.private_key = private_key
+	
+	var ssl_certificate = X509Certificate.new();
+	ssl_certificate.load("../certificates/cert.crt")
+	server.ssl_certificate = ssl_certificate
+	
+	var ca_chain = X509Certificate.new()
+	ca_chain.load("../certificates/chain.crt")
+	server.ca_chain = ca_chain
 	
 	get_tree().set_network_peer(server)
 	get_tree().connect("network_peer_connected", self, "_player_connected")

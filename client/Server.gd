@@ -14,7 +14,7 @@ func _ready():
 	
 	var client = WebSocketClient.new()
 	
-	var url = "ws://" + SERVER_IP + ":" + str(SERVER_PORT) # You use "ws://" at the beginning of the address for WebSocket connections
+	var url = "wss://" + SERVER_IP + ":" + str(SERVER_PORT) # You use "ws://" at the beginning of the address for WebSocket connections
 	var error = client.connect_to_url(url, PoolStringArray(), true);
 	
 	get_tree().network_peer = client
