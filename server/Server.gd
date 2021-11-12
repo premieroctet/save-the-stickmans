@@ -8,6 +8,7 @@ var players_positions = {}
 
 func _ready():
 	var server = WebSocketServer.new()
+	server.bind_ip = "*"
 	server.listen(SERVER_PORT, PoolStringArray(), true);
 
 	var private_key = CryptoKey.new(); 
