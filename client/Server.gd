@@ -12,18 +12,19 @@ func _ready():
 	player = get_tree().get_root().get_node('Main/Player')
 	map = get_tree().get_root().get_node('Main')
 	
-	var peer = NetworkedMultiplayerENet.new()
-	peer.set_dtls_verify_enabled(false)
+	var client = WebSocketClient.new()
 	
-	var error = peer.create_client(SERVER_IP, SERVER_PORT)
-	get_tree().network_peer = peer
+	var url = "ws://192.168.0.164:" + str(SERVER_PORT) # You use "ws://" at the beginning of the address for WebSocket connections
+	var error = client.connect_to_url(url, PoolStringArray(), true);
+	
+	get_tree().network_peer = client
 
 	get_tree().connect("connected_to_server", self, "_connected_ok")
 	get_tree().connect("connection_failed", self, "_connected_fail")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	
 	print(error)
-	print(peer.get_connection_status())
+	print(client.get_connection_status())
 
 func _process(delta):
 #	print(peer.get_connection_status())

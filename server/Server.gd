@@ -7,12 +7,12 @@ var players_ended = []
 var players_positions = {}
 
 func _ready():
-	var server = NetworkedMultiplayerENet.new()
-	var server_created = server.create_server(SERVER_PORT, MAX_PLAYERS)
+	var server = WebSocketServer.new()
+	server.listen(SERVER_PORT, PoolStringArray(), true);
+	
 	get_tree().set_network_peer(server)
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
-	print('server started ', server_created)
 
 func _physics_process(delta):
 	send_world_state()
