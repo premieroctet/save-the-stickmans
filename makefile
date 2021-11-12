@@ -1,4 +1,3 @@
 deploy-client:
 	npm install netlify-cli -g
-	cd client
-	netlify deploy --dir=export --prod
+	netlify deploy --dir=./export/HTML5 --prod
