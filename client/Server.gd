@@ -13,8 +13,9 @@ func _ready():
 	map = get_tree().get_root().get_node('Main')
 	
 	var client = WebSocketClient.new()
+	client.verify_ssl = false
 	
-	var url = "ws://" + SERVER_IP + ":" + str(SERVER_PORT) # You use "ws://" at the beginning of the address for WebSocket connections
+	var url = "wss://" + SERVER_IP + ":" + str(SERVER_PORT) # You use "ws://" at the beginning of the address for WebSocket connections
 	var error = client.connect_to_url(url, PoolStringArray(), true);
 	
 	get_tree().network_peer = client
@@ -22,7 +23,6 @@ func _ready():
 	get_tree().connect("connected_to_server", self, "_connected_ok")
 	get_tree().connect("connection_failed", self, "_connected_fail")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
-	
 	print(error)
 	print(client.get_connection_status())
 
