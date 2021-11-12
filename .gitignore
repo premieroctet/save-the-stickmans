@@ -11,3 +11,6 @@
 
 godot.log
 client/export/*
+*.log
+
+export.zip

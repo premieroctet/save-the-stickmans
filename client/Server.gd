@@ -1,7 +1,7 @@
 extends Node
 
 var Stickman = preload("res://Stickman.tscn")
-var SERVER_IP = '192.168.0.164'
+var SERVER_IP = '178.62.198.203'
 var SERVER_PORT = 8080
 var connected = false
 var players = {}
@@ -14,7 +14,7 @@ func _ready():
 	
 	var client = WebSocketClient.new()
 	
-	var url = "ws://192.168.0.164:" + str(SERVER_PORT) # You use "ws://" at the beginning of the address for WebSocket connections
+	var url = "ws://" + SERVER_IP + ":" + str(SERVER_PORT) # You use "ws://" at the beginning of the address for WebSocket connections
 	var error = client.connect_to_url(url, PoolStringArray(), true);
 	
 	get_tree().network_peer = client

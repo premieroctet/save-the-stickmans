@@ -13,6 +13,7 @@ func _ready():
 	get_tree().set_network_peer(server)
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
+	print('server started')
 
 func _physics_process(delta):
 	send_world_state()
